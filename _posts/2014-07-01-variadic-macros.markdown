@@ -2,7 +2,7 @@
 layout: post
 title:  "Variadic Macros"
 date:   2014-07-01 14:08:36
-categorie: c
+categories: c
 ---
 
 宏可像函数那样使用可变参数定义，GNU C支持两种方式的可变参数宏定义，一种是自身扩展，另一种是C99标准特性。
