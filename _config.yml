@@ -9,7 +9,7 @@ baseurl: ""
 encoding: UTF-8
 
 # Build settings
-markdown: rdiscount
-# markdown: kramdown
+# markdown: rdiscount
+markdown: kramdown
 permalink: pretty
 # permalink: /:categories/:year/:month/:day/:title
