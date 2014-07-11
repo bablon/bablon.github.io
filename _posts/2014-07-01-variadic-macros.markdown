@@ -43,4 +43,4 @@ C标准方面C99添加可变参数宏特性，使用方法：
     #endif
     #endif
 
-reference: https://gcc.gnu.org/onlinedocs/cpp/Variadic-Macros.html
+reference: [https://gcc.gnu.org/onlinedocs/cpp/Variadic-Macros.html](https://gcc.gnu.org/onlinedocs/cpp/Variadic-Macros.html)
