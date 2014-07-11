@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title:  "Variadic Macros"
 date:   2014-07-01 14:08:36
