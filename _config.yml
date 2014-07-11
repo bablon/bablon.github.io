@@ -6,8 +6,10 @@ description: "bablon's blog"
 baseurl: ""
 #url: "http://yourdomain.com"
 
-encoding: utf-8
+encoding: UTF-8
 
 # Build settings
-markdown: kramdown
+markdown: rdiscount
+# markdown: kramdown
 permalink: pretty
+# permalink: /:categories/:year/:month/:day/:title
