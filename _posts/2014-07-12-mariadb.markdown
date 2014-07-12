@@ -1,0 +1,82 @@
+---
+layout: post
+title:  "mariadb"
+date:   2014-07-14 13:00:00
+categories: c
+---
+
+我的笔记本使用Fedora 19，Fedora因担心mysql被oracle闭源，从版本19开始默认使用mariadb来代替mysql, mariadb由mysql创始人基于mysql做的分支开发，完全兼容mysql,并添加了新的功能。
+mariadb 安装与基本设置
+----------------------
+
+使用如下命令安装mariadb：
+
+    sudo yum install mariadb-server mariadb mariadb-libs mariadb-devel
+    
+对于yum软件包，形如package-libs的表示package使用的共享库包，形如package-devel表示开发使用的头文件包。
+启动mysqld
+
+    sudo systemctl start mysqld.service
+    
+    或者
+
+    sudo systemctl start mariadb.service
+    
+开机启动mysqld
+
+    sudo systemctl enable mysqld.service
+    
+    或者
+
+    sudo systemctl enable mariadb.service
+    
+使用systemctl管理服务，服务后缀.service可加可不加
+
+在生产环境中使用mysql_secure_installation进行基本安全设置，mysql_secure_installation按顺序进行以下交互设置。
+
+1. 设置或改变mysql root用户密码
+2. 是否移除匿名用户
+3. 是否禁止root用户远程登录
+4. 是否删除测试test数据库
+5. 是否重载权限设置
+
+用户操作
+--------
+登录mysql
+
+    mysql -u root -p
+
+用户操作命令
+    
+    查看用户
+    select user, host from mysql.user;
+    创建用户
+    create user 'bablon'@'%' identified by 'bablon';
+    设置密码
+    set password for 'bablon'@'%' = password('bablon');
+    set password = password('bablon');
+    删除用户
+    drop user bablon@'%';
+    创建数据库
+    create database bablon;
+    用户授权
+    grant all privileges on bablon.* to 'bablon'@'%' identified by 'bablon';
+    如果用户不存在，则创建用户。如果用户已存在，identified by存在则更改用户密码
+    刷新权限
+    flush privileges;
+    
+数据库基本操作
+------------
+    创建表
+    create table t1 (a int);
+    create table t2 (b int);
+    create table student (name char(10), score tinyint, tdate date);
+    插入数据
+    insert into t1 values (1), (2), (4);
+    insert into sutdent (name, socre, tdate) values ('Chun', 75, '2012-11-05');
+    删除表
+    drop table tablename;
+    
+mariadb函数库的使用
+-------------------
+
