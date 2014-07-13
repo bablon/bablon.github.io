@@ -17,17 +17,13 @@ mariadb 安装与基本设置
 启动mysqld
 
     sudo systemctl start mysqld.service
-    
-    或者
-
+    or
     sudo systemctl start mariadb.service
     
 开机启动mysqld
 
     sudo systemctl enable mysqld.service
-    
-    或者
-
+    or
     sudo systemctl enable mariadb.service
     
 使用systemctl管理服务，服务后缀.service可加可不加
