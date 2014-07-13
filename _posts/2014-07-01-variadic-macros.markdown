@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Variadic Macros"
+title:  "可变参数宏"
 date:   2014-07-01 14:08:36
 categories: c
 ---
