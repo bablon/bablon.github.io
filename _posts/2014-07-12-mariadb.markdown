@@ -6,6 +6,7 @@ categories: c
 ---
 
 我的笔记本使用Fedora 19，Fedora因担心mysql被oracle闭源，从版本19开始默认使用mariadb来代替mysql, mariadb由mysql创始人基于mysql做的分支开发，完全兼容mysql,并添加了新的功能。
+
 mariadb 安装与基本设置
 ----------------------
 
