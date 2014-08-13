@@ -12,7 +12,7 @@ categories: c
 ## DNS数据报
 RFC 1035定义DNS消息结构如下：
 
-    +-------------------+
+   +-------------------+
     | Header            |
     +-------------------+
     | Question          | the question for the name server
