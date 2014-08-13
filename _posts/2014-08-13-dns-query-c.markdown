@@ -5,6 +5,7 @@ date:   2014-08-13 16:32:56
 categories: c
 ---
 
+
 ## DNS查询
 通过主机名查找主机IP地址称为DNS查询，gethostbyname和getaddrinfo函数均具有DNS查询功能。
 本文则根据查询机制实现这一功能。向DNS服务器发送DNS查询请求并接收回复，然后从回复中解析出IP地址。
