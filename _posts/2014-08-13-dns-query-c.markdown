@@ -1,10 +1,9 @@
-﻿---
+---
 layout: post
-title:  "使用C实现DNS查询"
+title:  "Linux使用C实现DNS查询"
 date:   2014-08-13 16:32:56
 categories: c
 ---
-
 
 ## DNS查询
 通过主机名查找主机IP地址称为DNS查询，gethostbyname和getaddrinfo函数均具有DNS查询功能。
