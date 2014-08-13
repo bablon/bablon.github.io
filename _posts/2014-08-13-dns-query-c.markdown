@@ -1,6 +1,6 @@
 ﻿---
 layout: post
-title:  "Linux环境使用C实现DNS查询"
+title:  "使用C实现DNS查询"
 date:   2014-08-13 16:32:56
 categories: c
 ---
