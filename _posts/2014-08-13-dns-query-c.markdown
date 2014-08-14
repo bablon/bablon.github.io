@@ -6,11 +6,12 @@ categories: c
 ---
 
 ## DNS查询
-通过主机名查找主机IP地址称为DNS查询，gethostbyname和getaddrinfo函数均具有DNS查询功能。
-本文则根据查询机制实现这一功能。向DNS服务器发送DNS查询请求并接收回复，然后从回复中解析出IP地址。
+通过DNS查询可以实现主机名到主机IP地址的转换，gethostbyname和getaddrinfo函数封装了DNS查询，
+使用主机名得到主机信息，包括IP地址。本文则根据DNS查询机制重新实现这一功能。过程为：向DNS
+服务器发送DNS查询请求并接收回复，然后从回复中解析出IP地址。
 
 ## DNS数据报
-RFC 1035定义DNS消息结构如下：
+RFC 1035 DNS消息结构定义如下：
 
     +-------------------+
     | Header            |
@@ -24,9 +25,13 @@ RFC 1035定义DNS消息结构如下：
     | Additional        | RRs holding additional information
     +-------------------+
 
-查询消息不使用answer，authority和additional。DNS查询有不同的目的，除了获取主机IP地址，还可以获取指定域的邮件交换/服务器等等。
-首先发送带有主机名的请求，使用UDP协议，DNS服务器端口通常是53。下一步是接收带对应的回复。所有类型的查询和响应数据按上图组织。
-DNS回复数据头部含有资源记录（Resource Record）answer、authority和addition数量信息。
+查询消息不使用answer，authority和additional区域。DNS有不同的目的查询功能，除了获取
+主机IP地址，还可以获取指定域的邮件交换/服务器等等。
+
+首先使用UDP协议发送带有主机名的请求，DNS服务器端口通常是53。然后接收对应的回复。
+
+所有类型的查询和响应数据按上图组织。DNS回复数据头部含有资源记录（Resource Record）
+answer、authority和addition数量信息。
 
 ## DNS头部
 
@@ -44,26 +49,30 @@ DNS回复数据头部含有资源记录（Resource Record）answer、authority�
     |                  ARCOUNT                      |
     +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 
-ID - 16位消息标识符，由client生成，回复ID使用请求ID，以使client正确匹配对应的回复  
-QR - 1bit，指示消息是查询0还是应答1  
-OPCODE - 4bit，指定查询类型，0表示标准查询  
-AA - 1bit，权威应答标志，仅作用于应答。表示收到应答是否具有权威性  
-TC - 1bit，表示消息被截断  
-RD - 1bit，递归查询，1表示告诉域名服务器使用递归查询  
-RA - 1bit，递归可用，响应消息中设置或清除，表示域名服务器支持递归查询  
-Z - 3bit，保留  
-RCODE - 4bit，响应时设置，有以下取值：  
-  0 : 无错误条件  
-  1 : 格式错误  
-  2 : 服务器错误  
-  3 : 主机名不存在  
-  4 : 查询不支持  
-  5 : 服务器拒绝执行  
-QDCOUNT - 16bit，无符号整数，Question区查询个数  
-ANCOUNT - 16bit，无符号整数，Answer区资源记录个数  
-NSCOUNT - 16bit，无符号整数，Authority区资源记录个数  
-ARCOUNT - 16bit，无符号整数，Additional区资源记录个数  
+* ID - 16位消息标识符，由client生成，回复ID与请求ID相同
+* QR - 1bit，指示消息是查询0还是应答1
+* OPCODE - 4bit，指定查询类型，0表示标准查询
+* AA - 1bit，权威应答标志，仅作用于应答。表示收到应答是否具有权威性
+* TC - 1bit，表示消息被截断
+* RD - 1bit，递归查询，1表示告诉域名服务器使用递归查询
+* RA - 1bit，递归可用，响应消息中设置或清除，表示域名服务器支持递归查询
+* Z - 3bit，保留
+* RCODE - 4bit，响应时设置，有以下取值：
+
+    + 0 : 无错误条件
+    + 1 : 格式错误
+    + 2 : 服务器错误
+    + 3 : 主机名不存在
+    + 4 : 查询不支持
+    + 5 : 服务器拒绝执行
+
+* QDCOUNT - 16bit，无符号整数，Question区查询个数
+* ANCOUNT - 16bit，无符号整数，Answer区资源记录个数
+* NSCOUNT - 16bit，无符号整数，Authority区资源记录个数
+* ARCOUNT - 16bit，无符号整数，Additional区资源记录个数
+
 DNS响应数据包形如Header-Query-RR-RR-RR-RR........  
+
 查询结构形如:
 
     +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
@@ -77,7 +86,7 @@ DNS响应数据包形如Header-Query-RR-RR-RR-RR........
     +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 
 
-  QNAME表示主机名，QTYPE表示查询类型，QCLASS设置为1。  
+QNAME表示主机名，QTYPE表示查询类型，QCLASS设置为1。  
 
 资源记录RR结构如下图:
 
@@ -100,12 +109,13 @@ DNS响应数据包形如Header-Query-RR-RR-RR-RR........
     /                                               /
     +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 
-  TYPE字段表示RDATA怎样与NAME相关。例如，如果TYPE为１，RDATA包含名字对应的IP地址。
-
+  TYPE字段表示RDATA怎样与NAME相关。例如，如果TYPE为1，RDATA包含名字对应的IP地址。
+  
 ## DNS压缩方案
-如果数据包中多次出现同一个字符串，比如google.com出现10次，第一次完全写入，以后出现的写入第一次出现位置的
-偏移值，如www.google.com写在偏移12的位置，紧接着ns.google.com，写成ns.16，16为google.com第一次的偏移值。
-偏移值占2字节，前2位为1，剩下的为偏移值。如16编码为11000000 00000000 + 10000。
+如果数据包中多次出现同一个字符串，比如google.com出现10次，第一次完全写入，以后出现的
+用第一次存储偏移值来表示。例如如www.google.com写在偏移12的位置，紧接着ns.google.com
+写成ns.16，16为google.com第一次的偏移值。偏移值占2字节，前2位为1，剩下的为偏移值。
+例如,16编码为11000000 00000000 + 10000。
 
 ## c代码
 
