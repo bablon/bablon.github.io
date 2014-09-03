@@ -10,12 +10,11 @@ html, body { height: 100%; }
 
 body {
   /*font-family: "Lucida Grande","Lucida Sans Unicode",Helvetica,Arial,Verdana,sans-serif;*/
-  /*font-family: 1em "Droid Sans","Lucida Grande",Arial,"DejaVu Sans",Verdana,sans-serif;*/
-  /*font-family: Helvetica, Arial, sans-serif;*/
+  /*font-family: "Droid Sans","Lucida Grande",Arial,"DejaVu Sans",Verdana,sans-serif;*/
   font-family: "Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;
   font-size: 16px;
   line-height: 1.6;
-  font-weight: 300;
+  font-weight: 400;
   background-color: #fdfdfd;
 }
 
@@ -156,8 +155,9 @@ a:visited { color: #205caa; }
 
 .posts .post-link {
   font-size: 16px;
-  letter-spacing: -1px;
+  letter-spacing: 0px;
   line-height: 1;
+  color: black;
 }
 
 .posts .post-date {
