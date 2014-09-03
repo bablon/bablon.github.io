@@ -12,9 +12,9 @@ body {
   /*font-family: "Lucida Grande","Lucida Sans Unicode",Helvetica,Arial,Verdana,sans-serif;*/
   /*font-family: 1em "Droid Sans","Lucida Grande",Arial,"DejaVu Sans",Verdana,sans-serif;*/
   /*font-family: Helvetica, Arial, sans-serif;*/
-  font-family: Arial, SimSun, sans-serif;
+  font-family: "Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.6;
   font-weight: 300;
   background-color: #fdfdfd;
 }
