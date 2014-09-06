@@ -25,6 +25,7 @@ C标准方面C99添加可变参数宏特性，使用方法：
     #define eprintf(format, args...) fprintf(stderr, format, ##args)
 
 调试宏使用用例：
+
 ```c
 #undef DEBUG
 #undef C99_VARIADIC_MACROS
