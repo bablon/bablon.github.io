@@ -26,21 +26,22 @@ C标准方面C99添加可变参数宏特性，使用方法：
 
 调试宏使用用例：
 ```c
-    #undef DEBUG
-    #undef C99_VARIADIC_MACROS
-    #undef GNU_VARIDIC_MACROS
-    #ifdef DEBUG
-    #ifndef C99_VARIADIC_MACROS
-    #define debug(fmt, args...) printf(fmt, ##args)
-    #else
-    #define debug(fmt, ...)	printf(fmt, ##__VA_ARGS__)
-    #endif
-    #else
-    #ifndef C99_VARIADIC_MACROS
-    #define debug(fmt, args...)
-    #else
-    #define debug(fmt, ...)
-    #endif
-    #endif
+#undef DEBUG
+#undef C99_VARIADIC_MACROS
+#undef GNU_VARIDIC_MACROS
+#ifdef DEBUG
+#ifndef C99_VARIADIC_MACROS
+#define debug(fmt, args...) printf(fmt, ##args)
+#else
+#define debug(fmt, ...)	printf(fmt, ##__VA_ARGS__)
+#endif
+#else
+#ifndef C99_VARIADIC_MACROS
+#define debug(fmt, args...)
+#else
+#define debug(fmt, ...)
+#endif
+#endif
+```
 
 reference: [https://gcc.gnu.org/onlinedocs/cpp/Variadic-Macros.html](https://gcc.gnu.org/onlinedocs/cpp/Variadic-Macros.html)
