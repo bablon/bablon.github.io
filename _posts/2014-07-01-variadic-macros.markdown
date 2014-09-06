@@ -26,7 +26,7 @@ C标准方面C99添加可变参数宏特性，使用方法：
 
 调试宏使用用例：
 
-```c
+```
 #undef DEBUG
 #undef C99_VARIADIC_MACROS
 #undef GNU_VARIDIC_MACROS
