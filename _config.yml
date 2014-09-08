@@ -1,0 +1,10 @@
+# Site settings
+username: Bablon
+title: The Hanging Gardens
+email: liujia6264@gmail.com
+description: "bablon's blog"
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "bablon.github.io" # the base hostname & protocol for your site
+
+# Build settings
+markdown: kramdown
