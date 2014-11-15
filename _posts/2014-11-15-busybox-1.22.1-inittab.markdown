@@ -4,6 +4,8 @@ title:  "busybox inittab usage"
 date:   2014-11-15 21:38:18
 categories: busybox
 ---
+The following content is from busybox-1.22.1 source file init/init.c.
+
 This version of init is designed to be run only by the kernel.
 
 BusyBox init doesn't support multiple runlevels. The runlevels field of
