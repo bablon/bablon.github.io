@@ -5,15 +5,15 @@ date:   2015-07-14 13:30:00
 categories: openvpn
 ---
 
-前些天用openvpnas搭建了一个openvpn服务器，openvpnas全称`OpenVPN Access Server`，是openvpn的商业化解决方案，不需要复杂的配置，安装完成后就能使用。通过web来进行管理，修改配置和添加用户，用户登录后下载用户的配置文件给对应平台的客户端。没有许可证时同时连接的客户端不超过2个，个人在此范围内可自由使用。所以它主要面向的是企业用户。
+前些天用openvpnas搭建了一个openvpn服务器，openvpnas全称OpenVPN Access Server，是openvpn的商业化解决方案，不需要复杂的配置，安装完成后就能使用。通过web来进行管理，修改配置和添加用户，用户登录后下载用户的配置文件给对应平台的客户端。没有许可证时同时连接的客户端不超过2个，个人在此范围内可自由使用。所以它主要面向的是企业用户。
 
-Chromebook原生支持L2TP和OpenVPN, openvpn的配置比较灵活，chromeos支持的并不友好，它只支持用户名和密码的方式。直接使用ovpn配置文件的方式不支持，我并不想打开开发者模式，希望在用户层面就能够得到解决。chromeos有一个内部地址可以导入ONC配置文件，ONC配置文件是chromeos内部使用的网络配置文件,json格式，全称`Open Network Configuration`。通过它可以定义多种网络配置，用户可方便地在不同配置间切换。目前还没有工具生成或者转换成onc配置，只能手工将ovpn配置转换成onc配置文件，这需要对两个配置都要有足够的理解。
+Chromebook原生支持L2TP和OpenVPN, openvpn的配置比较灵活，chromeos支持的并不友好，它只支持用户名和密码的方式。直接使用ovpn配置文件的方式不支持，我并不想打开开发者模式，希望在用户层面就能够得到解决。chromeos有一个内部地址可以导入ONC配置文件，ONC配置文件是chromeos内部使用的网络配置文件,json格式，全称Open Network Configuration。通过它可以定义多种网络配置，用户可方便地在不同配置间切换。目前还没有工具生成或者转换成onc配置，只能手工将ovpn配置转换成onc配置文件，这需要对两个配置都要有足够的理解。
 
 # 参考资源
 
-* [OpenVPN on ChromeOS Documentation][openvpn_on_chromeos] 描述配置步骤
-* [Open Network Configuration Format][onc_format] 描述配置文件的json格式
-* [Online UUID Generator][uuid_generator] 在线UUID生成器
+* [OpenVPN on ChromeOS Documentation][openvpn_on_chromeos]
+* [Open Network Configuration Format][onc_format]
+* [Online UUID Generator][uuid_generator]
 
 [openvpn_on_chromeos]: https://docs.google.com/document/d/18TU22gueH5OKYHZVJ5nXuqHnk2GN6nDvfu2Hbrb4YLE/pub#h.buf7fpkgt9c8
 [onc_format]: http://src.chromium.org/chrome/trunk/src/components/onc/docs/onc_spec.html#sec_OpenVPN_connections_and_types
@@ -34,7 +34,7 @@ ovpn文件支持内嵌证书，`ca`标签之间的内容认证机构证书，提
 
 # 准备ONC文件
 
-根据`OpenVPN on ChromeOS Documentation`参考资源所提供的文件实例，结合自己的ovpn文件进行修改。
+根据参考资源1所提供的文件实例，结合自己的ovpn文件进行修改。
 
 # 导入ONC文件
 
