@@ -19,9 +19,7 @@ Chromebook原生支持L2TP和OpenVPN, openvpn的配置比较灵活，chromeos支
 [onc_format]: http://src.chromium.org/chrome/trunk/src/components/onc/docs/onc_spec.html#sec_OpenVPN_connections_and_types
 [uuid_generator]: https://www.uuidgenerator.net/
 
-# 配置步骤
-
-## 准备证书文件
+# 准备证书文件
 
 ovpn文件支持内嵌证书，`ca`标签之间的内容认证机构证书，提取并保存为ca.crt。`cert`和`key`分别是用户证书和私钥，保存为client.crt和client.key。chromeos仅支持PKCS12格式的用户证书，要将client.crt和client.key格式转换成pkcs12。
 使用openssl命令来生成pkcs12格式的用户证书，client.p12。
@@ -30,21 +28,29 @@ ovpn文件支持内嵌证书，`ca`标签之间的内容认证机构证书，提
     
 `tls-auth`标签之间是tls授权使用的静态key，保存为ta.key。
 
-## 导入证书文件
+# 导入证书文件
 
 打开地址`chrome://settings/certificates`，选择授权中心，导入ca.crt证书。选择您的证书，使用`导入并绑定到设备`导入client.p12文件。
 
-## 准备ONC文件
+# 准备ONC文件
 
-根据`OpenVPN on ChromeOS Documentation`参考资源所提供的文件实例，结合自己的ovpn文件进行修改。我在配置文件及注意事项会在下面进行介绍。
+根据`OpenVPN on ChromeOS Documentation`参考资源所提供的文件实例，结合自己的ovpn文件进行修改。
 
-## 导入ONC文件
+# 导入ONC文件
 
 打开地址chrome://net-internals， 选择ChromeOS，在`Import ONC file`标题下，执行导入操作。
 
 # ONC配置文件
 
-`RemoteCertTLS`的默认值是`server`，我在开始配置的过程中，总是配置失败，查看日志一直是`ssl3_get_server_certificate:certificate verify failed`错误。后来仔细比较内部配置输出和ovpn配置的差异，将`RemoteCertTLS`设为`none`，取得配置成功。
+Here is my onc and ovpn file on [github][gist-onc].
+
+[gist-onc]: https://gist.github.com/bablon/a15a435315348b4eccfa
+
+`RemoteCertTLS`的默认值是`server`，我在开始配置的过程中，总是配置失败，查看日志一直是
+
+    ssl3_get_server_certificate:certificate verify failed
+
+错误。后来仔细比较内部配置输出和ovpn配置的差异，将`RemoteCertTLS`设为`none`，取得配置成功。
 
 证书的格式是`X509`，内容占一行，要将ca.crt文件中的多行合并成一行。
 
@@ -56,14 +62,6 @@ tls授权的静态key和json key是`TLSAuthContents`, 它的内容也是占一�
     
 GUID字段是一个全局唯一的字符串，可以用UUID生成器来生成。
     
-## 调试方法
+# 调试方法
 
 内部地址: chrome://system，用来查看系统信息。`network-services`记录服务启动信息。`netlog`记录了网络工作的日志。如果出现错误可以在这两个地址进行错误信息的查找。
-
-## 文件内容
-
-Here is my onc and ovpn file on [github][gist-onc].
-
-[gist-onc]: https://gist.github.com/bablon/a15a435315348b4eccfa
-
-
