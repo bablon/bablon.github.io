@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "fio期望和标准差的计算与证明"
-date:   2020-02-20 23:30:00
+date:   2020-02-20 08:30:00
 categories: fio
 ---
 
