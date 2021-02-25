@@ -63,7 +63,7 @@ n(En+1 - En) = Xn+1 - En+1      式3
 
 首先推导方差
 
-Sn = (X1 - En)^2 + ... + (Xn - En)^2
+Sn = (X1 - En)^2 + ... + (Xn - En)^2  
 Sn+1 = (X1 - En+1)^2 + ... + (Xn - En+1)^2 + (Xn+1 - En+1)^2
 
 Sn+1 - Sn = (Xn+1 - En+1)^2 + (2(X1 + ... + Xn) - nEn+1 -nEn)(En - En+1)  
